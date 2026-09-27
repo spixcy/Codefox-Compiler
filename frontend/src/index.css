@@ -1,0 +1,16 @@
+@import "tailwindcss";
+
+@theme {
+  --color-dark-bg: #1e1e1e;
+  --color-dark-surface: #252526;
+  --color-dark-border: #333333;
+}
+
+body {
+  background-color: var(--color-dark-bg);
+  color: #e0e0e0;
+  margin: 0;
+  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', 'Oxygen',
+    'Ubuntu', 'Cantarell', 'Fira Sans', 'Droid Sans', 'Helvetica Neue',
+    sans-serif;
+}

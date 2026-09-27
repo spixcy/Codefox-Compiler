@@ -1,0 +1,57 @@
+// This is your Prisma schema file,
+// learn more about it in the docs: https://pris.ly/d/prisma-schema
+
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "sqlite"
+  url      = env("DATABASE_URL")
+}
+
+model Problem {
+  id           Int      @id @default(autoincrement())
+  title        String
+  slug         String   @unique
+  description  String
+  difficulty   String
+  constraints  String
+  inputFormat  String
+  outputFormat String
+  examples     String
+  functionName String?
+  starterCode  String
+  timeLimit    Float    @default(2.0)
+  memoryLimit  Float    @default(256.0)
+  createdAt    DateTime @default(now())
+  updatedAt    DateTime @updatedAt
+
+  testCases    TestCase[]
+  submissions  Submission[]
+}
+
+model TestCase {
+  id             Int      @id @default(autoincrement())
+  problemId      Int
+  problem        Problem  @relation(fields: [problemId], references: [id])
+  input          String
+  expectedOutput String
+  isPublic       Boolean  @default(false)
+  order          Int      @default(0)
+}
+
+model Submission {
+  id         Int      @id @default(autoincrement())
+  problemId  Int
+  problem    Problem  @relation(fields: [problemId], references: [id])
+  code       String
+  language   String   @default("python")
+  status     String
+  passedTests Int     @default(0)
+  totalTests  Int     @default(0)
+  runtime    Float?
+  memory     Float?
+  message    String?
+  createdAt  DateTime @default(now())
+}
